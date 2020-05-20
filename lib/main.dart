@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gerente_loja/screens/login/login_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,7 +12,7 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.pinkAccent,
       ),
       debugShowCheckedModeBanner: false,
-      home: Container(color: Colors.red),
+      home: LoginScreen(),
     );
   }
 }
