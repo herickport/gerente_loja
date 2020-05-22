@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gerente_loja/blocs/login_bloc.dart';
-import 'package:gerente_loja/screens/home/home_screen.dart';
-import 'package:gerente_loja/screens/login/widgets/input_field.dart';
+import 'package:gerente_loja/screens/home_screen.dart';
+import 'package:gerente_loja/widgets/input_field.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
