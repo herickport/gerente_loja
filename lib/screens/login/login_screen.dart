@@ -53,7 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Text("Entrar"),
                           color: Colors.pinkAccent,
                           textColor: Colors.white,
-                          onPressed: snapshot.hasData ? () {} : null,
+                          onPressed: snapshot.hasData ? _loginBloc.submit : null,
                           disabledColor: Colors.pinkAccent.withAlpha(140),
                         ),
                       );
