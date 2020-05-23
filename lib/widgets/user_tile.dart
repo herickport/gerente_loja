@@ -21,6 +21,7 @@ class UserTile extends StatelessWidget {
           style: _textStyle,
         ),
         trailing: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
             Text(

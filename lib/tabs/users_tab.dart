@@ -20,6 +20,7 @@ class UsersTab extends StatelessWidget {
               icon: Icon(Icons.search, color: Colors.white),
               border: InputBorder.none
             ),
+            onChanged: _userBloc.onChangedSearch,
           ),
         ),
         Expanded(
@@ -42,7 +43,7 @@ class UsersTab extends StatelessWidget {
               else
                 return ListView.separated(
                   itemBuilder: (context, index) {
-                    return UserTile(snapshot.data[index]);
+                    return UserTile(user: snapshot.data[index]);
                   },
                   separatorBuilder: (context, index) {
                     return Divider();
