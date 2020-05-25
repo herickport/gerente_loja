@@ -16,7 +16,6 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
 
-    FirebaseAuth.instance.signOut();
     _loginBloc.outState.listen((state) {
       switch(state) {
         case LoginState.SUCESS:
