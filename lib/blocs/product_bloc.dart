@@ -1,5 +1,6 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:rxdart/rxdart.dart';
 
 class ProductBloc extends BlocBase {
@@ -50,10 +51,39 @@ class ProductBloc extends BlocBase {
 
   Future<bool> saveProduct() async {
     _loadingController.add(true);
-    await Future.delayed(Duration(seconds: 3));
-    _loadingController.add(false);
-    
-    return true;
+
+    try {
+      if(product != null) {
+        await _uploadImages(product.documentID);
+        await product.reference.updateData(unsavedData);
+      } else {
+        DocumentReference dr = await Firestore.instance.collection("products").document(categoryId)
+          .collection("items").add(Map.from(unsavedData)..remove("images"));
+        await _uploadImages(dr.documentID);
+        await dr.updateData(unsavedData);
+      }
+
+      _loadingController.add(false);
+      return true;
+    } catch (e) {
+      _loadingController.add(false);
+      return false;
+    }
+  }
+
+  Future _uploadImages(String productId) async {
+    for(int i = 0; i < unsavedData["images"].length; i++) {
+      if(unsavedData["images"][i] is String) continue;
+
+      StorageUploadTask uploadTask = FirebaseStorage.instance.ref().child(categoryId)
+        .child(productId).child(DateTime.now().millisecondsSinceEpoch.toString())
+        .putFile(unsavedData["images"][i]);
+
+      StorageTaskSnapshot s = await uploadTask.onComplete;
+      String downloadUrl = await s.ref.getDownloadURL();
+
+      unsavedData["images"][i] = downloadUrl;
+    }
   }
 
   @override
