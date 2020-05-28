@@ -12,8 +12,8 @@ class _ProductsTabState extends State<ProductsTab> with AutomaticKeepAliveClient
   Widget build(BuildContext context) {
     super.build(context);
 
-    return FutureBuilder<QuerySnapshot>(
-      future: Firestore.instance.collection("products").getDocuments(),
+    return StreamBuilder<QuerySnapshot>(
+      stream: Firestore.instance.collection("products").snapshots(),
       builder: (context, snapshot) {
         if(!snapshot.hasData)
           return Center(
@@ -22,6 +22,7 @@ class _ProductsTabState extends State<ProductsTab> with AutomaticKeepAliveClient
             ),
           );
         return ListView.builder(
+          padding: EdgeInsets.only(top: 16),
           itemCount: snapshot.data.documents.length,
           itemBuilder: (context, index) {
             return CategoryTile(snapshot.data.documents[index]);
