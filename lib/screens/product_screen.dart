@@ -143,13 +143,10 @@ class _ProductScreenState extends State<ProductScreen> with ProductValidators {
                       ),
                     ),
                     ProductSizes(
+                      context: context,
                       initialValue: snapshot.data["sizes"],
-                      onSaved: (s) {
-
-                      },
-                      validator: (s) {
-                        
-                      },
+                      onSaved: _productBloc.saveSizes,
+                      validator: validateSizes,
                     )
                   ],
                 );
